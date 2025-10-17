@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CVE Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .sdk-buttons {
+      margin-bottom: 15px;
+    }
+    .sdk-buttons button {
+      margin: 3px;
+      padding: 6px 12px;
+      background-color: #eee;
+      border: 1px solid #aaa;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .sdk-buttons button.active {
+      background-color: #007bff;
+      color: white;
+    }
+    table.dataTable {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    table.dataTable th, table.dataTable td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      vertical-align: top;
+    }
+  </style>
+</head>
+<body>
+  <h1>CVE Dashboard</h1>
+
+  <div class="sdk-buttons" id="sdkButtons"></div>
+
+  <table id="cveTable" class="display">
+    <thead>
+      <tr>
+        <th>SDK</th>
+        <th>CVE ID</th>
+        <th>Severity</th>
+        <th>CVSS</th>
+        <th>CWE</th>
+        <th>Published</th>
+        <th>Description / Title</th>
+        <th>Reference</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script>
+    let dataTable;
+
+    fetch('results.json')
+      .then(res => res.json())
+      .then(data => {
+        const tableBody = document.querySelector('#cveTable tbody');
+        const sdkSet = new Set();
+
+        data.results.forEach(item => {
+          sdkSet.add(item.sdk);
+          const description = item.title || item.description;
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${item.sdk}</td>
+            <td><a href="https://nvd.nist.gov/vuln/detail/${item.id}" target="_blank">${item.id}</a></td>
+            <td>${item.severity}</td>
+            <td>${item.cvss}</td>
+            <td>${item.cwe}</td>
+            <td>${item.published.split("T")[0]}</td>
+            <td>${description}</td>
+            <td><a href="${item.reference}" target="_blank">Link</a></td>
+          `;
+          tableBody.appendChild(row);
+        });
+
+        dataTable = $('#cveTable').DataTable({
+          pageLength: 25,
+          order: [[5, 'desc']]
+        });
+
+        const sdkButtonsDiv = document.getElementById('sdkButtons');
+
+        const showAllBtn = document.createElement('button');
+        showAllBtn.textContent = 'Show All';
+        showAllBtn.classList.add('active');
+        showAllBtn.onclick = () => {
+          document.querySelectorAll('.sdk-buttons button').forEach(b => b.classList.remove('active'));
+          showAllBtn.classList.add('active');
+          dataTable.column(0).search('').draw();
+        };
+        sdkButtonsDiv.appendChild(showAllBtn);
+
+        sdkSet.forEach(sdk => {
+          const btn = document.createElement('button');
+          btn.textContent = sdk;
+          btn.onclick = () => {
+            document.querySelectorAll('.sdk-buttons button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            dataTable.column(0).search(sdk).draw();
+          };
+          sdkButtonsDiv.appendChild(btn);
+        });
+      });
+  </script>
+</body>
+</html>
