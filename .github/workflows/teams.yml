@@ -77,10 +77,12 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
+          git fetch origin main
+          git rebase origin/main || git pull --rebase
           git add output/cve-report.pdf
           git commit -m "Update CVE PDF report [skip ci]" || echo "No changes to commit"
-          git push
-
+          git push origin HEAD:main
+          
       - name: Get Artifact ID
         id: get_artifact
         run: |
