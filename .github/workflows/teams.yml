@@ -5,6 +5,9 @@ on:
     workflows: ["CVE Monitor"]
     types:
       - completed
+      
+permissions:
+  contents: write
 
 jobs:
   alert:
