@@ -17,6 +17,9 @@ KEYWORDS = [
     {"sdk": "Newlib 2.5.0", "search": "Newlib", "version": "2.5.0"},
     {"sdk": "wpa_supplicant 2.2", "search": "wpa_supplicant", "version": "2.2"},
     {"sdk": "IEEE 802.1X, WPA, WPA2, RSN, IEEE 802.11i", "search": "IEEE 802.1X"},
+    {"sdk": "RealtekSDK(7.1d+v06 full patch)", "search": "RealtekSDK 7.1d v06"},
+    {"sdk": "MINIX3", "search": "MINIX3", "version": "3.3.0"},
+    {"sdk": "easy-ecc", "search": "easy-ecc"}
 ]
 
 headers = {"User-Agent": "cve-monitor/1.0"}
@@ -141,4 +144,5 @@ with open("output/results.json", "w") as f:
     json.dump(output, f, indent=2)
 
 print(f"✅ Scan complete. {len(results)} CVEs saved to output/results.json")
+
 
