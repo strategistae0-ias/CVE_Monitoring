@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-23T18:04:05.622725+00:00",
+  "timestamp": "2026-04-24T17:43:50.881033+00:00",
   "results": [
     {
       "source": "NVD",
@@ -132,6 +132,18 @@
       "published": "2023-11-28T07:15:41.340",
       "reference": "https://dl.acm.org/doi/10.1145/3576915.3623066",
       "sdk": "Bluetooth Core Specification 4.2"
+    },
+    {
+      "source": "NVD",
+      "id": "CVE-2016-4303",
+      "title": "",
+      "description": "The parse_string function in cjson.c in the cJSON library mishandles UTF8/16 strings, which allows remote attackers to cause a denial of service (crash) or execute arbitrary code via a non-hex character in a JSON string, which triggers a heap-based buffer overflow.",
+      "severity": "CRITICAL",
+      "cvss": 9.8,
+      "cwe": "CWE-120",
+      "published": "2016-09-26T14:59:01.553",
+      "reference": "http://blog.talosintel.com/2016/06/esnet-vulnerability.html",
+      "sdk": "cJSON v1.6.0"
     },
     {
       "source": "NVD",
