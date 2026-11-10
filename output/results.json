@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-10T00:30:21.108879+00:00",
+  "timestamp": "2026-11-10T22:05:45.916611+00:00",
   "results": [
     {
       "source": "NVD",
@@ -323,6 +323,18 @@
       "cwe": "CWE-304",
       "published": "2024-05-17T21:15:07.910",
       "reference": "https://mentor.ieee.org/802.11/dcn/24/11-24-0938-03-000m-protect-ssid-in-4-way-handshake.docx",
+      "sdk": "IEEE 802.1X, WPA, WPA2, RSN, IEEE 802.11i"
+    },
+    {
+      "source": "NVD",
+      "id": "CVE-2026-120976",
+      "title": "",
+      "description": "On affected platforms running Arista EOS with IEEE 802.1X authentication and MACsec using dynamically derived keys, sensitive authentication information may be recorded in diagnostic data during a Smart Switch Upgrade (SSU).\n\nAn attacker with administrative access on the device who obtains the affected diagnostic data could recover sensitive authentication information. This could potentially compromise the confidentiality and integrity of traffic protected by MACsec on the affected link.\n\nThe vulnerability is only exposed during and after an SSU reload where an active 802.1X session used for MACsec is present.",
+      "severity": "MEDIUM",
+      "cvss": 6.0,
+      "cwe": "CWE-532",
+      "published": "2026-11-10T20:18:52.660",
+      "reference": "https://www.arista.com/en/support/advisories-notices/security-advisory/25038-security-advisory-0216",
       "sdk": "IEEE 802.1X, WPA, WPA2, RSN, IEEE 802.11i"
     }
   ]
